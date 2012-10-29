@@ -1,0 +1,201 @@
+/* ------------------------------------------ */
+/*                                            */
+/* divelog.css    Mark Brettin  JULY 2012     */
+/*                                            */
+/* ------------------------------------------ */
+
+#ui-datepicker-div { font-size: 9pt; } 
+
+#divelog {
+    border: 1px solid #000088;
+    width: 510px;
+    height: 640px;
+}
+
+#divelog_settings {
+    border: 1px solid #000088;
+    width: 510px;
+    height: 384px;
+}
+
+#divelog_help {
+    border: 1px solid #000088;
+    width: 510px;
+    height: 384px;
+}
+
+#divelog_listing {
+    border: 1px solid #000088;
+    width: 640px;
+    height: 480px;
+}
+
+.main_font {
+    font-family: Arial, Verdana, Sans-Serif;
+    font-size: 9pt;
+    color: #000000;
+}
+
+input {
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #1ba4ff;    /*#30b9f3;*/
+    font-size: 9pt;
+    padding-left: 2px;
+    margin-bottom: 2px;
+}
+
+.chkbox {
+    color: #000000;
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;    /*#30b9f3;*/
+    font-size: 9pt;
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+
+.radiobtn {
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+}
+
+.button {
+    background-color: #205895;   /*#409ea6; */
+    color: #ffffff;
+    padding: 2px;
+    border: 1px solid #409ea6;
+    margin-bottom: 0px;
+}
+
+.transparent_button {
+    background-color: #e0e0e0;
+    border: 0px solid #ffffff;
+    color: #000088;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+.transparent_button:hover {
+    background-color: #f0f0f0; /*#e0e0e0;*/
+    border: 1px solid #ffffff;
+    color: #cd0000;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+}
+
+span#divelog_new_dive { 
+    color: #000088; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+}
+
+span#divelog_new_dive:hover { 
+    color: #be133b; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+    cursor: pointer;
+}
+
+span#divelog_listing_open { 
+    color: #000088; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+}
+
+span#divelog_listing_open:hover { 
+    color: #be133b; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+    cursor: pointer;
+}
+
+span#divelog_settings_open { 
+    color: #000088; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+}
+
+span#divelog_settings_open:hover { 
+    color: #be133b; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+    cursor: pointer;
+}
+
+span#divelog_help_open { 
+    color: #000088; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+}
+
+span#divelog_help_open:hover { 
+    color: #be133b; 
+    text-decoration: none; 
+    margin: 0px; 
+    padding: 0px; 
+    cursor: pointer;
+}
+
+#comments {
+    width: 298px; 
+    max-width: 298px; 
+    height: 166px; 
+    max-height: 166px;
+    font-family: Arial, Tahoma, Sans-Serif;
+    font-size: 9pt;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #1ba4ff;
+}
+
+#divelog_settings_close:hover { cursor: pointer; }
+#divelog_help_close:hover     { cursor: pointer; }
+#divelog_listing_close:hover  { cursor: pointer; }
+
+#helptext {
+    font-family: Arial, Verdana, Sans-Serif;
+    font-size: 9pt;
+    background-color: #ffffff;
+    color: #404040;
+    width: 486px; 
+    height: 290px;
+    max-width: 486px; 
+    max-height: 290px;
+}
+
+.loglisting_row_odd {
+    cursor: pointer;
+    background-color: #c6dae5;
+    text-align: left;
+}
+.loglisting_row_odd:hover { text-decoration: none; background-color: #ffffbb; }
+
+
+.loglisting_row_even {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    text-align: left;  
+}
+.loglisting_row_even:hover { text-decoration: none; background-color: #ffffbb; }
+
+
+.loglisting_cell {
+    border: 1px solid #808080;
+    padding: 4px;
+    text-align: left;
+}
+
+
+span#password       { color: #000088; text-decoration: none; }
+span#password:hover { cursor: pointer; color: #be133b; text-decoration: none; }
+
+

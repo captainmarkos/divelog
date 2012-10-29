@@ -1,0 +1,237 @@
+
+<!-- ~~~~~~~~~~~~~~ -->
+<!-- BEGIN: divelog -->
+<!-- ~~~~~~~~~~~~~~ -->
+<div id="divelog" class="main_font">
+    <table style="width: 510px; height: 640px; border: 1px solid #0066ff; background-color: #1ba4ff;">
+        <tr>
+            <td style="width: 28px; height: 22px; vertical-align: middle;">
+                <img src="images/dive_flag.jpg" alt="" style="width: 23px; height: 18px; border: 0px solid #000000;" />
+            </td>
+            <td style="height: 22px; color: #ffffff; vertical-align: middle;"><b>Blue Wild - Dive Log</b></td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;" colspan="2">
+                <table style="width: 100%; height: 606px; border: 1px solid #808080; background-color: #f0f0f0;" cellspacing="0" cellpadding="0">
+                    <!-- BEGIN: toolstrip -->
+                    <tr>
+                        <td style="text-align: left; height: 24px; vertical-align: middle; background-color: #e0e0e0; padding-left: 4px;">
+                            <span id="divelog_new_dive">New Dive</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id="divelog_listing_open">Log Listing</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id="divelog_settings_open">Settings</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id="divelog_help_open">Help</span>
+                        </td>
+                        <td style="text-align: right; height: 24px; vertical-align: middle; background-color: #e0e0e0; padding-right: 4px;">
+                            <input type="button" class="transparent_button" id="first_dive" title="First dive" value="<<" style="width: 26px;" />
+                            <input type="button" class="transparent_button" id="prev_dive"  title="Previous dive" value="<" style="width: 26px;" />
+                            <input type="button" class="transparent_button" id="next_dive"  title="Next dive" value=">" style="width: 26px;" />
+                            <input type="button" class="transparent_button" id="last_dive"  title="Last dive" value=">>"  style="width: 26px;" />
+                        </td>
+                    </tr>
+                    <!-- END: toolstrip -->
+                    <tr>
+                        <!-- BEGIN: left side of divelog page -->
+                        <td style="vertical-align: top; padding: 6px 4px 4px 4px; border: 0px solid #cd0000;">
+                            <table border="0" cellspacing="0" cellpadding="0" style="text-align: left; width: 99%;">
+                                <tr>
+                                    <td style="text-align: left; width: 82px;">Dive #</td>
+                                    <td style="text-align: left;"><input type="text" id="dive_no" value="" style="width: 36px;" /></td>
+                                    <td style="text-align: right; width: 58px;">Dive Date&nbsp;</td>
+                                    <td style="text-align: right;"><input type="text" id="dive_date" value="" style="width: 74px;" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td colspan="3"><input type="text" id="location" value="" style="width: 230px;" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Site Name</td>
+                                    <td colspan="3"><input type="text" id="site_name" value="" style="width: 230px;" /></td>
+                                </tr>
+                            </table>
+
+                            <!-- BEGIN: RDP -->
+                            <table border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #000000; width: 99%; margin-top: 6px; padding: 4px 4px 4px 4px;">
+                                <tr>
+                                    <td style="width: 20%; text-align: center;">SI</td>
+                                    <td style="width: 20%; text-align: center;">PG</td>
+                                    <td style="width: 40%; text-align: center;">&nbsp;</td>
+                                    <td style="width: 20%; text-align: center;">PG</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; padding-bottom: 4px;"><input type="text" id="si" value="" size="2" /></td>
+                                    <td style="text-align: center; padding-bottom: 4px;"><input type="text" id="begin_pg" value="" size="2" /></td>
+                                    <td style="text-align: center; padding-bottom: 4px;">&nbsp;</td>
+                                    <td style="text-align: center; padding-bottom: 4px;"><input type="text" id="end_pg" value="" size="2" /></td>
+                                </tr>
+                                <tr style="height: 92px;">
+                                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000; text-align: center;" colspan="2">
+                                        Depth <span class="prefs_depth"></span>
+                                        <br />
+                                        <input type="text" id="depth" value="" size="2" />
+                                    </td>
+                                    <td style="border-bottom: 1px solid #000000;">&nbsp;</td>
+                                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; text-align: center;">
+                                        <span class="prefs_safety_stop"></span>
+                                        <br />
+                                        <input type="text" id="safety_stop" value="" size="2" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 48px;">
+                                    <td style="text-align: center;">&nbsp;</td>
+                                    <td style="text-align: center;">&nbsp;</td>
+                                    <td style="text-align: center;">Bottom Time<br /><input type="text" id="bottom_time" value="" size="4" /></td>
+                                    <td style="text-align: center;">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <!-- END: RDP -->
+
+                            <table cellspacing="0" cellpadding="0" style="margin-top: 4px; width: 98%; text-align: left;">
+                                <tr>
+                                    <td><input type="checkbox" id="computer" value="Y" class="chkbox" />&nbsp;Computer Dive&nbsp;</td>
+                                    <td><input type="text" id="computer_desc" value="" style="width: 100%;" /></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" id="eanx" value="Y" class="chkbox" />&nbsp;Enriched Air Blend %&nbsp;</td>
+                                    <td><input type="text" id="eanx_percent" value="" style="width: 100%;" /></td>
+                                </tr>
+
+                                <tr><td colspan="2" style="height: 20px;">&nbsp;</td></tr>
+
+                                <tr>
+                                    <td colspan="2" style="text-align: left;">Comments</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2" style="text-align: left;">
+                                    <textarea id="comments" rows="" cols=""></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- END: left side of divelog page -->
+
+                        <!-- BEGIN: right side of divelog page -->
+                        <td style="vertical-align: top; width: 175px; padding: 6px 4px 4px 4px; border: 0px solid #cd0000;">
+                            <table cellspacing="0" cellpadding="0" style="width: 100%; text-align: left;">
+                                <tr>
+                                    <td>Time In&nbsp;</td>
+                                    <td><input type="text" id="time_in" value="" size="5" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Time Out&nbsp;</td>
+                                    <td><input type="text" id="time_out" value="" size="5" /></td>
+                                </tr>
+
+                                <tr><td colspan="2" style="height: 20px;">&nbsp;</td></tr>  <!-- BLANK ROW -->
+
+                                <tr>
+                                    <td>RNT&nbsp;</td>
+                                    <td><input type="text" id="rnt" value="" size="5" /></td>
+                                </tr>
+                                <tr>
+                                    <td>ABT&nbsp;</td>
+                                    <td><input type="text" id="abt" value="" size="5" /></td>
+                                </tr>
+                                <tr>
+                                    <td>TBT&nbsp;</td>
+                                    <td><input type="text" id="tbt" value="" size="5" /></td>
+                                </tr>
+
+                                <tr><td colspan="2" style="height: 20px;">&nbsp;</td></tr>  <!-- BLANK ROW -->
+
+                                <tr><td colspan="2">Temperature</td></tr>
+
+                                <tr>
+                                    <td>Air&nbsp;</td>
+                                    <td><input type="text" id="air_temp" value="" size="5" />&nbsp;<span class="prefs_temp"></td>
+                                </tr>
+                                <tr>
+                                    <td>Bottom&nbsp;</td>
+                                    <td><input type="text" id="bottom_temp" value="" size="5" />&nbsp;<span class="prefs_temp"></td>
+                                </tr>
+
+                                <tr><td colspan="2" style="height: 20px;">&nbsp;</td></tr>  <!-- BLANK ROW -->
+
+                                <tr>
+                                    <td>Begin&nbsp;</td>
+                                    <td><input type="text" id="begin_psi" value="" size="5" />&nbsp;<span class="prefs_pressure"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>End&nbsp;</td>
+                                    <td><input type="text" id="end_psi" value="" size="5" />&nbsp;<span class="prefs_pressure"></span></td>
+                                </tr>
+
+                                <tr><td colspan="2" style="height: 20px;">&nbsp;</td></tr>  <!-- BLANK ROW -->
+
+                                <tr>
+                                    <td>Visibility&nbsp;</td>
+                                    <td><input type="text" id="viz" value="" size="5" />&nbsp;<span class="prefs_distance"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Weight&nbsp;</td>
+                                    <td><input type="text" id="weight" value="" size="5" />&nbsp;<span class="prefs_weight"></span></td>
+                                </tr>
+
+                                <tr><td colspan="2" style="height: 20px;">&nbsp;</td></tr>  <!-- BLANK ROW -->
+
+                                <tr>
+                                    <td colspan="2">
+                                        <table cellspacing="0" cellpadding="0" style="width: 100%; text-align: left;">
+                                            <tr>
+                                                <td style="width: 50%;">Conditions</td>
+                                                <td style="width: 50%;">Protection</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="salt" value="Y" />&nbsp;Salt</td>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="wetsuit" value="Y" />&nbsp;Wetsuit</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="fresh" value="Y" />&nbsp;Fresh</td>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="drysuit" value="Y" />&nbsp;Drysuit</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="boat" value="Y" />&nbsp;Boat</td>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="hood" value="Y" />&nbsp;Hood</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="shore" value="Y" />&nbsp;Shore</td>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="gloves" value="Y" />&nbsp;Gloves</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="surge" value="Y" />&nbsp;Surge</td>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="boots" value="Y" />&nbsp;Boots</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="waves" value="Y" />&nbsp;Waves</td>
+                                                <td style="width: 50%; padding-top: 4px;"><input class="chkbox" type="checkbox" id="vest" value="Y" />&nbsp;Vest</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- BEGIN: bottom button controls -->
+                    <tr>
+                        <td colspan="2" style="text-align: left; vertical-align: bottom; border: 0px solid #cd0000;">
+                            <span id="divelog_info" style="padding: 0px 0px 0px 6px;"></span>
+                            <table cellspacing="0" cellpadding="0" style="float: right;">
+                                <tr>
+                                    <td><input type="button" class="button" id="divelog_delete" style="margin: 0px 4px 6px 4px; width: 60px;" value="Delete" /></td>
+                                    <td><input type="button" class="button" id="divelog_edit"   style="margin: 0px 4px 6px 4px; width: 60px;" value="Edit" /></td>
+                                    <td><input type="button" class="button" id="divelog_save"   style="margin: 0px 4px 6px 4px; width: 60px;" value="Save" /></td>
+                                    <td><input type="button" class="button" id="divelog_cancel" style="margin: 0px 4px 6px 4px; width: 60px;" value="Cancel" /></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- END: bottom button controls -->
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- ~~~~~~~~~~~~~~ -->
+<!-- END: divelog   -->
+<!-- ~~~~~~~~~~~~~~ -->

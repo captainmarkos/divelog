@@ -1,0 +1,151 @@
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- BEGIN: divelog_help        -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div id="divelog_help" class="main_font">
+    <table style="width: 510px; height: 384px; border: 1px solid #0066ff; background-color: #1ba4ff;">
+        <tr>
+            <td style="width: 28px; height: 22px; vertical-align: middle;">
+                <img src="images/dive_flag.jpg" alt="" style="width: 23px; height: 18px; border: 0px solid #000000;" />
+            </td>
+            <td style="height: 22px; color: #ffffff; vertical-align: middle;"><b>Blue Wild - Dive Log - Help</b></td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;" colspan="2">
+                <table style="width: 100%; height: 350px; border: 1px solid #808080; background-color: #f0f0f0;" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="vertical-align: top; padding: 6px 4px 4px 4px; border: 0px solid #cd0000;">
+                            <textarea id="helptext" readonly="readonly" rows="" cols="">
+Dive Log - Main interface
+This is the main screen that appears when you start the Dive Log.  You have the functions in the menu bar at the top to add a "New Dive", view the "Log Listing" entries, view and set user "Settings", and scroll through the log entries with the "Previous" and "Next" links.
+
+
+Before Logging Any Dives
+Before you start logging your dives, you should go to "Settings" and specify your preferences.  At the very least, you should specify an email address.  The email address is used to store your log entries.  Basically it tells the program that the log entries belong to this email address.  This is mandatory when you turn on the "Web Enabled" functionality.  If you haven't already specified an email addess, do so now.
+
+
+Location of Data File
+Note the file name and location of the data file.  This is where your log entries are saved.  In case you want to backup your log entries or use them in another application, you can find the file.  You can also find the data file name and location in the "Settings" screen.
+
+
+Data File Location: C:\Users\Mark.Brettin\AppData\Local\divelog.xml
+
+
+Dive Log - Field Descriptions
+
+
+Dive No: This is the dive number and is used as a unique identifier within the application to find the log entry.  This value is required.
+
+
+Dive Date: This is the date of dive you are logging.  The date format is YYYY-MM-DD.  This value is required.
+
+
+Location: The location of where you did your dive.  An example might be "Key Largo, FL" or "Port Douglas, QLD".  This field is optional and the data you enter is your choosing.
+
+
+Site Name: The name of dive site.  Examples might be "Tenneco Towers" or "Looe Key Reef".  This field is optional and the data you enter is your choosing.
+
+
+Time In: Time that you began your dive.  This field is optional.
+
+
+Time Out: Time that you ended your dive.  This field is optional.
+
+
+SI (Surface Interval): If you've done multiple dives then the surface interval is the time spent out of the water between dives.  This field is optional.
+
+
+PG (Pressure Group): There are two pressure group fields.  The PG next to the SI indicates your pressure group at the beginning of the dive.  The PG above the safety stop is the pressure group at the end of the dive.  These fields are optional.
+
+
+Depth: This is the maximum depth of your dive.  This field is optional.
+
+
+Bottom Time: The amount of time you spent diving, usually expressed in minutes.  This field is optional.
+
+
+Stop: A.K.A. "Safety Stop".  This is the amount of time you spent hanging out at your safety stop (if you did a safety stop).  Usually expressed in minutes.  This field is optional.
+
+
+RNT: The Residual Nitrogen Time (RNT) is a theoretical mathematical representation of the amount of nitrogen absorbed in body tissues after a dive. Expressed on dive tables in minutes and are added to the no-decompression limit for a repetitive dive.  This field is optional.
+
+
+ABT: Actual Bottom Time (ABT) is the total time, expressed in minutes, of your dive.  This is the same as the "Bottom Time" and is added to the RNT to get the TBT.
+
+
+TBT: Total Bottom Time (TBT) is a term used in common dive tables to represent the amount of time spent underwater, including residual nitrogen time. Total bottom time is the sum of RNT and ABT.
+
+
+Air: The air temperature. This field is optional.
+
+
+Bottom: The bottom (water) temperature.  This field is optional.
+
+
+Begin: The beginning tank pressure expressed in PSI or BAR.  This field is optional.
+
+
+RNT: The ending tank pressure expressed in PSI or BAR.  This field is optional.
+
+
+Visibility: The range of visibility while diving expressed in feet or meters.  This field is optional.
+
+
+Weight: The amount of weight used while diving expressed in pounds or kilograms.  This field is optional.
+
+
+Computer Dive: If a dive computer was used or not and a description of dive computer, for example "Suunto D4".  These fields are optional.
+
+
+Enriched Air Blend %: If Enriched Air Nitrox (EANx) was used or not and if so the percentage.  This field is optional.
+
+
+Conditions: Can select some common conditions regarding the dive.  This field is optional.
+
+
+Protection: Can select some common exposure protection worn during the dive.  This field is optional.
+
+
+Comments: Comments regarding the dive.  This field is optional.
+
+
+Log Listing
+This screen will display a listing of all the dive log entries.  If a row is clicked on, the log entry in that row will be displayed on the main screen.
+
+
+Settings
+The "Settings" screen enables certain preferences to be set.
+
+
+Web Enabled: Currently "Web Enabled" setting is disabled.  A future version will allow for log entries to be stored in an online database so that a web interface may be used to log dives in addition to this application.  A web-enabled version would be useful for logging dives on a different computer or from mobile devices.  Check for updates at http://www.bluewild.us
+
+
+Contact Information
+Please report all bugs, comments and/or suggestions to captainmarkos@gmail.com.  Please include the version information and descriptive comments when reporting a bug.  Thanks and happy diving!
+
+
+
+                            </textarea>
+                        </td>
+                    </tr>
+
+                    <!-- BEGIN: bottom button controls -->
+                    <tr>
+                        <td colspan="2" style="text-align: left; vertical-align: bottom; border: 0px solid #cd0000;">
+                            <span id="divelog_help_info" style="padding: 0px 0px 0px 6px;"></span>
+                            <table cellspacing="0" cellpadding="0" style="float: right;">
+                                <tr>
+                                    <td><input type="button" class="button" id="divelog_help_close" style="margin: 0px 4px 6px 4px; width: 60px;" value="Close" /></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- END: bottom button controls -->
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- END: divelog_help          -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
