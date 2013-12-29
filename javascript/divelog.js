@@ -25,8 +25,7 @@ var save_curr_dive_index = 0;         // used to preserve the value of curr_dive
 var dives = new Array();              // an array of associative arrays containing all logged dives
 var prefs = new Array();              // an array of associative arrays containing diverlog preferences
 
-var email = 'captainmarkos@gmail.com';
-
+// var email = some_valid_email_address;
 
 $(document).ready(function() {
 
