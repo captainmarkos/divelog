@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'config.php';
+    require_once('config.php');
 
     // Attempt to save a new dive into the divelog table.  The complete XML
     // of the dive to be logged is passed in and is base64 encoded.
