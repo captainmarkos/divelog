@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'config.php';
+    require_once('config.php');
 
     $email = (isset($_REQUEST['email']) && $_REQUEST['email'] != '') ? $_REQUEST['email'] : '';
     if($email == '') { print "ERROR: email is empty"; exit(); }
