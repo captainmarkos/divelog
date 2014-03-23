@@ -48,11 +48,13 @@ input {
 #divelog_signin.button {
     margin: 0px 4px 6px 4px;
     width: 60px;
+    float: right;
 }
 
 #divelog_signup.button {
     margin: 0px 4px 6px 4px;
     width: 60px;
+    float: right;
 }
 
 .chkbox {
@@ -163,6 +165,18 @@ span#divelog_logout {
 }
 
 span#divelog_logout:hover {
+    color: #be133b;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+
+span#divelog_forgot_password {
+    color: #0000ff;
+}
+
+span#divelog_forgot_password:hover {
     color: #be133b;
     text-decoration: none;
     margin: 0px;

@@ -58,6 +58,12 @@ function login_event_handlers() {
 
     $('#divelog_signup').click(function() {
         // TODO
+        alert('Sorry, this is in progress.');
+    });
+
+    $('#divelog_forgot_password').click(function() {
+        // TODO
+        alert('Sorry, this is in progress. In the meantime, if you need, send an email to bluewildscuba@gmail.com to request a password reset');
     });
 }
 
