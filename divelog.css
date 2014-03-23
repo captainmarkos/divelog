@@ -1,8 +1,8 @@
-/* ------------------------------------------ */
-/*                                            */
-/* divelog.css    Mark Brettin  JULY 2012     */
-/*                                            */
-/* ------------------------------------------ */
+/* ------------------------------------------------ */
+/*                                                  */
+/* BEGIN divelog.css    Mark Brettin  JULY 2012     */
+/*                                                  */
+/* ------------------------------------------------ */
 
 #ui-datepicker-div { font-size: 9pt; } 
 
@@ -224,3 +224,7 @@ span#password       { color: #000088; text-decoration: none; }
 span#password:hover { cursor: pointer; color: #be133b; text-decoration: none; }
 
 
+/* ---------------- */
+/*                  */
+/* END divelog.css  */
+/* ---------------- */

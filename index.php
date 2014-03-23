@@ -28,17 +28,21 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 </head>
 <body>
 <br />
-<br />
 <center>
 
 
 <table border="0" style="min-width: 680px; width: 680px; text-align: center;" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="font-family: Arial, Verdana, Sans-Serif; font-size: 9pt; padding-bottom: 20px;">
+        <a href="http://www.bluewild.us">Back To Bluewild Home</a>
+        </td>
+    </tr>
     <tr><td align="center">
-        <?php include 'divelog.html'; ?>
-        <?php include 'divelog_login.html'; ?>
-        <?php include 'divelog_listing.html'; ?>
-        <?php include 'divelog_settings.html'; ?>
-        <?php include 'divelog_help.html'; ?>
+        <?php include('divelog.html'); ?>
+        <?php include('divelog_login.html'); ?>
+        <?php include('divelog_listing.html'); ?>
+        <?php include('divelog_settings.html'); ?>
+        <?php include('divelog_help.html'); ?>
     </td></tr>
 </table>
 

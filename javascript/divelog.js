@@ -57,7 +57,7 @@ function login_event_handlers() {
     });
 
     $('#divelog_signup').click(function() {
-        console.log('--> sign up button clicked!');
+        // TODO
     });
 }
 
