@@ -1,7 +1,7 @@
 <?php
 
 require_once('config.php');
-require_once('classes/db_helper.php');
+require_once('../classes/db_helper.php');
 
 // Attempt to delete an existing dive.
 //

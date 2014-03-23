@@ -6,7 +6,7 @@
 // with default values and the XML is returned.
 
 require_once('config.php');
-require_once('classes/db_helper.php');
+require_once('../classes/db_helper.php');
 
 $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
 if(!$email) { echo "ERROR: email is empty"; exit(); }

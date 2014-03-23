@@ -1,7 +1,7 @@
 <?php
 
 require_once('config.php');
-require_once('classes/db_helper.php');
+require_once('../classes/db_helper.php');
 
 // Attempt to save a new dive into the divelog table.  The complete XML
 // of the dive to be logged is passed in and is base64 encoded.
@@ -135,7 +135,7 @@ function execute_update($dbconn, $divedata) {
     $sql .= "fresh=?, shore=?, boat=?, waves=?, wetsuit=?, drysuit=?, hood=?, ";
     $sql .= "gloves=?, boots=?, surge=?, vest=?, location=?, site_name=?, ";
     $sql .= "si=?, begin_pg=?, end_pg=?, depth=?, safety_stop=?, bottom_time=?, ";
-    $sql .= "computer=?, computer_desc=?, eanx=?, eanx_percent=?, comments=?, ";
+    $sql .= "computer=?, computer_desc=?, eanx=?, eanx_percent=?, comments=? ";
     $sql .= "WHERE email=? AND dive_no=?";
 
     $sql = $db_helper->construct_secure_query($sql, $params);
@@ -150,16 +150,18 @@ function execute_update($dbconn, $divedata) {
 
 function execute_insert($dbconn, $divedata) {
     // This is a new dive being logged, save a new record.
+    $db_helper = new DBHelper($dbconn);
+
     $sql  = "INSERT INTO divelog (email, dive_no, dive_date, time_in, time_out, rnt, abt, tbt, ";
     $sql .= "air_temp, bottom_temp, begin_psi, end_psi, viz, weight, salt, fresh, shore, boat, ";
     $sql .= "waves, wetsuit, drysuit, hood, gloves, boots, surge, vest, location, site_name, ";
     $sql .= "si, begin_pg, end_pg, depth, safety_stop, bottom_time, computer, computer_desc, ";
     $sql .= "eanx, eanx_percent, comments) ";
     $sql .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
-    $sql .= "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
-    $sql .= "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
-    $sql .= "?, ?, ?, ?, ?, ?, ?, ?)";
-    $params = array($divedata['dive_no'], $divedata['dive_date'],
+    $sql .= "        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
+    $sql .= "        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
+    $sql .= "        ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $params = array($divedata['email'], $divedata['dive_no'], $divedata['dive_date'],
                     $divedata['time_in'], $divedata['time_out'],
                     $divedata['rnt'], $divedata['abt'], $divedata['tbt'],
                     $divedata['air_temp'], $divedata['bottom_temp'],

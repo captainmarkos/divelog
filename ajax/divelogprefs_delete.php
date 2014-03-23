@@ -1,7 +1,7 @@
 <?php
 
 require_once('config.php');
-require_once('classes/db_helper.php');
+require_once('../classes/db_helper.php');
 
 $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
 $dive_no = isset($_REQUEST['dive_no']) ? $_REQUEST['dive_no'] : '';

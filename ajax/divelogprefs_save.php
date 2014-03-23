@@ -1,7 +1,7 @@
 <?php
 
 require_once('config.php');
-require_once('classes/db_helper.php');
+require_once('../classes/db_helper.php');
 
 // Attempt to save a new dive into the divelog table.  The complete XML
 // of the dive to be logged is passed in and is base64 encoded.
@@ -103,7 +103,7 @@ function execute_insert($dbconn, $diveprefs) {
     $sql  = "INSERT INTO divelogprefs (user_id, distance, weight, temperature, pressure, ";
     $sql .= "cert_level, cert_agency) ";
     $sql .= "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $params = array($diveprefs['user_id']$diveprefs['distance'],
+    $params = array($diveprefs['user_id'], $diveprefs['distance'],
                     $diveprefs['weight'], $diveprefs['temperature'],
                     $diveprefs['pressure'], $diveprefs['cert_level'],
                     $diveprefs['cert_agency']);
