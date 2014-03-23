@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-$email = (!empty($_SESSION['login'])) ? $_SESSION['login'] : '';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
+
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,6 +35,7 @@ $email = (!empty($_SESSION['login'])) ? $_SESSION['login'] : '';
 <table border="0" style="min-width: 680px; width: 680px; text-align: center;" cellpadding="0" cellspacing="0">
     <tr><td align="center">
         <?php include 'divelog.html'; ?>
+        <?php include 'divelog_login.html'; ?>
         <?php include 'divelog_listing.html'; ?>
         <?php include 'divelog_settings.html'; ?>
         <?php include 'divelog_help.html'; ?>

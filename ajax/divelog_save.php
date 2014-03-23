@@ -1,223 +1,184 @@
 <?php
 
-    require_once 'config.php';
+require_once('config.php');
+require_once('classes/db_helper.php');
 
-    // Attempt to save a new dive into the divelog table.  The complete XML
-    // of the dive to be logged is passed in and is base64 encoded.
-    //
+// Attempt to save a new dive into the divelog table.  The complete XML
+// of the dive to be logged is passed in and is base64 encoded.
+
+$xmldata = isset($_REQUEST['xmldata']) ? $_REQUEST['xmldata'] : '';
+if(!$xmldata) { echo "ERROR: xmldata is empty - divelog_save.php"; exit(); }
 
 
-    $xmldata = (isset($_REQUEST['xmldata']) && $_REQUEST['xmldata'] != '') ? $_REQUEST['xmldata'] : '';
-    if($xmldata == '') { print "ERROR: xmldata is empty - divelog_save.php"; exit(); }
+$xmlfile = 'divelog_' . date("Y-m-d_H-i-s") . '.xml';
+if(!($fp = fopen($xmlfile, "a"))) {
+    echo "ERROR: unable to open file \"$xmlfile\"\n"; exit(); }
+fwrite($fp, base64_decode($xmldata));
+fclose($fp);
 
+$divedata = array('email' => '',
+                  'dive_no' => '',
+                  'dive_date' => '',
+                  'location' => '',
+                  'site_name' => '',
+                  'time_in' => '',
+                  'time_out' => '',
+                  'air_temp' => '',
+                  'bottom_temp' => '',
+                  'begin_psi' => '',
+                  'end_psi' => '',
+                  'viz' => '',
+                  'weight' => '',
+                  'salt' => '',
+                  'fresh' => '',
+                  'boat' => '',
+                  'shore' => '',
+                  'surge' => '',
+                  'waves' => '',
+                  'wetsuit' => '',
+                  'drysuit' => '',
+                  'hood' => '',
+                  'gloves' => '',
+                  'boots' => '',
+                  'vest' => '',
+                  'computer' => '',
+                  'computer_desc' => '',
+                  'eanx' => '',
+                  'eanx_percent' => '',
+                  'rnt' => '',
+                  'abt' => '',
+                  'tbt' => '',
+                  'si' => '',
+                  'begin_pg' => '',
+                  'end_pg' => '',
+                  'depth' => '',
+                  'safety_stop' => '',
+                  'bottom_time' => '',
+                  'comments' => '',
+                  'timestamp' => '');
 
-    $xmlfile = 'divelog_' . date("Y-m-d_H-i-s") . '.xml';
-    if(!($fp = fopen($xmlfile, "a"))) {
-        print "ERROR: unable to open file \"$xmlfile\"\n"; exit(); }
-    fwrite($fp, base64_decode($xmldata));
-    fclose($fp);
+parse_xml($xmlfile);
 
-    $divedata = array('email' => '',
-                      'dive_no' => '',
-                      'dive_date' => '',
-                      'location' => '',
-                      'site_name' => '',
-                      'time_in' => '',
-                      'time_out' => '',
-                      'air_temp' => '',
-                      'bottom_temp' => '',
-                      'begin_psi' => '',
-                      'end_psi' => '',
-                      'viz' => '',
-                      'weight' => '',
-                      'salt' => '',
-                      'fresh' => '',
-                      'boat' => '',
-                      'shore' => '',
-                      'surge' => '',
-                      'waves' => '',
-                      'wetsuit' => '',
-                      'drysuit' => '',
-                      'hood' => '',
-                      'gloves' => '',
-                      'boots' => '',
-                      'vest' => '',
-                      'computer' => '',
-                      'computer_desc' => '',
-                      'eanx' => '',
-                      'eanx_percent' => '',
-                      'rnt' => '',
-                      'abt' => '',
-                      'tbt' => '',
-                      'si' => '',
-                      'begin_pg' => '',
-                      'end_pg' => '',
-                      'depth' => '',
-                      'safety_stop' => '',
-                      'bottom_time' => '',
-                      'comments' => '',
-                      'timestamp' => ''
-	       );
+unlink($xmlfile);
+$db_helper = new DBHelper($dbconn);
 
-    parse_xml($xmlfile);
+$sql  = "SELECT * FROM divelog WHERE email=? AND dive_no=?";
+$params = array($divedata['email'], $divedata['dive_no']);
+$sql = $db_helper->construct_secure_query($sql, $params);
+$res = $dbconn->query($sql);
+if(!$res) {
+    echo "ERROR: Query Failed: errno: " . $dbconn->errno . " error: " . $dbconn->error;
+    exit();
+}
 
-    unlink($xmlfile);
-
-    $sql  = "SELECT * FROM divelog WHERE email='"; 
-    $sql .= $dbconn->real_escape_string($divedata['email']);
-    $sql .= "' AND dive_no=" . $dbconn->real_escape_string($divedata['dive_no']);
-    $res = $dbconn->query($sql);
-    if(!$res) {
-        print "ERROR: Query Failed: errno: " . $dbconn->errno . " error: " . $dbconn->error;
-        exit();
-    }
-
-    $row_cnt = $res->num_rows;
-    if($row_cnt >= 1) {
-        // There is a dive logged for this email address and dive_no.  Maybe it has deleted == 'Y'?
-        $row = $res->fetch_assoc();
-  	if($row['deleted'] == 'Y') {
-  	    $sql = "DELETE FROM divelog WHERE id=" . $row['id'];
-            $res = $dbconn->query($sql);
-            if(!$res) {
-                print "ERROR: Delete Failed: " . $dbconn->error;
-                exit();
-            }
-            DB_execute_insert($dbconn, $divedata);
-            print "Saved new dive# " . $divedata['dive_no'] .
-                  "\nLocation: " . $divedata['location'] .
-                  "\nSite Name: " . $divedata['site_name'];  // NOTE: This text is parsed in divelog.js.
+$row_cnt = $res->num_rows;
+if($row_cnt >= 1) {
+    // There is a dive logged for this email address and dive_no.  Maybe it has deleted == 'Y'?
+    $row = $res->fetch_assoc();
+    if($row['deleted'] == 'Y') {
+        $sql = "DELETE FROM divelog WHERE id=?";
+        $sql = $db_helper->construct_secure_query($sql, $row['id']);
+        $res = $dbconn->query($sql);
+        if(!$res) {
+            echo "ERROR: Delete Failed: " . $dbconn->error;
             exit();
         }
-        else {
-	    DB_execute_update($dbconn, $divedata);
-            print "Updated dive# " . $divedata['dive_no'] .
-                  "\nLocation: " . $divedata['location'] .
-                  "\nSite Name: " . $divedata['site_name'];  // NOTE: This text is parsed in divelog.js.
-            exit();
-        }
-    }
-    else {
-        DB_execute_insert($dbconn, $divedata);
-        print "Saved new dive# " . $divedata['dive_no'] .
+        execute_insert($dbconn, $divedata);
+        echo "Saved new dive# " . $divedata['dive_no'] .
               "\nLocation: " . $divedata['location'] .
               "\nSite Name: " . $divedata['site_name'];  // NOTE: This text is parsed in divelog.js.
         exit();
     }
-
-    // Terminating program successfully.
-    print "Why did we get here?\n\nDive# " . $divedata['dive_no'];
+    else {
+        execute_update($dbconn, $divedata);
+        echo "Updated dive# " . $divedata['dive_no'] .
+              "\nLocation: " . $divedata['location'] .
+              "\nSite Name: " . $divedata['site_name'];  // NOTE: This text is parsed in divelog.js.
+        exit();
+    }
+}
+else {
+    execute_insert($dbconn, $divedata);
+    echo "Saved new dive# " . $divedata['dive_no'] .
+         "\nLocation: " . $divedata['location'] .
+         "\nSite Name: " . $divedata['site_name'];  // NOTE: This text is parsed in divelog.js.
     exit();
+}
+
+// Terminating program successfully.
+echo "Why did we get here?\n\nDive# " . $divedata['dive_no'];
+exit();
 
 
-?>
-
-
-<?php
-
-function DB_execute_update($dbconn, $divedata) {
+function execute_update($dbconn, $divedata) {
     // This is an update to an existing logged dive.
-    $sql  = "UPDATE divelog SET ";
-    $sql .= "dive_date='" . $dbconn->real_escape_string($divedata['dive_date']);
-    $sql .= "', time_in='" . $dbconn->real_escape_string($divedata['time_in']);
-    $sql .= "', time_out='" . $dbconn->real_escape_string($divedata['time_out']);
-    $sql .= "', rnt=" . $dbconn->real_escape_string($divedata['rnt']);
-    $sql .= ", abt=" . $dbconn->real_escape_string($divedata['abt']);
-    $sql .= ", tbt=" . $dbconn->real_escape_string($divedata['tbt']);
-    $sql .= ", air_temp='" . $dbconn->real_escape_string($divedata['air_temp']);
-    $sql .= "', bottom_temp='" . $dbconn->real_escape_string($divedata['bottom_temp']);
-    $sql .= "', begin_psi=" . $dbconn->real_escape_string($divedata['begin_psi']);
-    $sql .= ", end_psi=" . $dbconn->real_escape_string($divedata['end_psi']);
-    $sql .= ", viz='" . $dbconn->real_escape_string($divedata['viz']);
-    $sql .= "', weight='" . $dbconn->real_escape_string($divedata['weight']);
-    $sql .= "', salt='" . $dbconn->real_escape_string($divedata['salt']);
-    $sql .= "', fresh='" . $dbconn->real_escape_string($divedata['fresh']);
-    $sql .= "', shore='" . $dbconn->real_escape_string($divedata['shore']);
-    $sql .= "', boat='" . $dbconn->real_escape_string($divedata['boat']);
-    $sql .= "', waves='" . $dbconn->real_escape_string($divedata['waves']);
-    $sql .= "', wetsuit='" . $dbconn->real_escape_string($divedata['wetsuit']);
-    $sql .= "', drysuit='" . $dbconn->real_escape_string($divedata['drysuit']);
-    $sql .= "', hood='" . $dbconn->real_escape_string($divedata['hood']);
-    $sql .= "', gloves='" . $dbconn->real_escape_string($divedata['gloves']);
-    $sql .= "', boots='" . $dbconn->real_escape_string($divedata['boots']);
-    $sql .= "', surge='" . $dbconn->real_escape_string($divedata['surge']);
-    $sql .= "', vest='" . $dbconn->real_escape_string($divedata['vest']);
-    $sql .= "', location='" . $dbconn->real_escape_string($divedata['location']);
-    $sql .= "', site_name='" . $dbconn->real_escape_string($divedata['site_name']);
-    $sql .= "', si='" . $dbconn->real_escape_string($divedata['si']);
-    $sql .= "', begin_pg='" . $dbconn->real_escape_string($divedata['begin_pg']);
-    $sql .= "', end_pg='" . $dbconn->real_escape_string($divedata['end_pg']);
-    $sql .= "', depth='" . $dbconn->real_escape_string($divedata['depth']);
-    $sql .= "', safety_stop='" . $dbconn->real_escape_string($divedata['safety_stop']);
-    $sql .= "', bottom_time=" . $dbconn->real_escape_string($divedata['bottom_time']);
-    $sql .= ", computer='" . $dbconn->real_escape_string($divedata['computer']);
-    $sql .= "', computer_desc='" . $dbconn->real_escape_string($divedata['computer_desc']);
-    $sql .= "', eanx='" . $dbconn->real_escape_string($divedata['eanx']);
-    $sql .= "', eanx_percent='" . $dbconn->real_escape_string($divedata['eanx_percent']);
-    $sql .= "', comments='" . $dbconn->real_escape_string($divedata['comments']);
-    $sql .= "' WHERE email='" . $dbconn->real_escape_string($divedata['email']);
-    $sql .= "' AND dive_no=" . $dbconn->real_escape_string($divedata['dive_no']);
+    $db_helper = new DBHelper($dbconn);
+    $params = array($divedata['dive_date'], $divedata['time_in'],
+                    $divedata['time_out'], $divedata['rnt'], $divedata['abt'],
+                    $divedata['tbt'], $divedata['air_temp'],
+                    $divedata['bottom_temp'], $divedata['begin_psi'],
+                    $divedata['end_psi'], $divedata['viz'], $divedata['weight'],
+                    $divedata['salt'], $divedata['fresh'], $divedata['shore'],
+                    $divedata['boat'], $divedata['waves'], $divedata['wetsuit'],
+                    $divedata['drysuit'], $divedata['hood'], $divedata['gloves'],
+                    $divedata['boots'], $divedata['surge'], $divedata['vest'],
+                    $divedata['location'], $divedata['site_name'], $divedata['si'],
+                    $divedata['begin_pg'], $divedata['end_pg'], $divedata['depth'],
+                    $divedata['safety_stop'], $divedata['bottom_time'],
+                    $divedata['computer'], $divedata['computer_desc'],
+                    $divedata['eanx'], $divedata['eanx_percent'],
+                    $divedata['comments'], $divedata['email'], $divedata['dive_no']);
 
+    $sql  = "UPDATE divelog SET ";
+    $sql .= "dive_date=?, time_in=?, time_out=?, rnt=?, abt=?, tbt=?, air_temp=?, ";
+    $sql .= "bottom_temp=?,  begin_psi=?, end_psi=?, viz=?, weight=?, salt=?, ";
+    $sql .= "fresh=?, shore=?, boat=?, waves=?, wetsuit=?, drysuit=?, hood=?, ";
+    $sql .= "gloves=?, boots=?, surge=?, vest=?, location=?, site_name=?, ";
+    $sql .= "si=?, begin_pg=?, end_pg=?, depth=?, safety_stop=?, bottom_time=?, ";
+    $sql .= "computer=?, computer_desc=?, eanx=?, eanx_percent=?, comments=?, ";
+    $sql .= "WHERE email=? AND dive_no=?";
+
+    $sql = $db_helper->construct_secure_query($sql, $params);
     $res = $dbconn->query($sql);
     if(!$res) {
-        print "ERROR: Update failed: errno: " . $dbconn->error;
-        print "\n\n$sql\n";
+        echo "ERROR: Update failed: errno: " . $dbconn->error;
+        echo "\n\n$sql\n";
         exit();
     }
 }
 
 
-function DB_execute_insert($dbconn, $divedata) {
+function execute_insert($dbconn, $divedata) {
     // This is a new dive being logged, save a new record.
     $sql  = "INSERT INTO divelog (email, dive_no, dive_date, time_in, time_out, rnt, abt, tbt, ";
     $sql .= "air_temp, bottom_temp, begin_psi, end_psi, viz, weight, salt, fresh, shore, boat, ";
     $sql .= "waves, wetsuit, drysuit, hood, gloves, boots, surge, vest, location, site_name, ";
     $sql .= "si, begin_pg, end_pg, depth, safety_stop, bottom_time, computer, computer_desc, ";
     $sql .= "eanx, eanx_percent, comments) ";
-    $sql .= "VALUES ('" . $dbconn->real_escape_string($divedata['email']);
-    $sql .= "', " . $dbconn->real_escape_string($divedata['dive_no']);
-    $sql .= ", '" . $dbconn->real_escape_string($divedata['dive_date']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['time_in']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['time_out']);
-    $sql .= "', " . $dbconn->real_escape_string($divedata['rnt']);
-    $sql .= ", " . $dbconn->real_escape_string($divedata['abt']);
-    $sql .= ", " . $dbconn->real_escape_string($divedata['tbt']);
-    $sql .= ", '" . $dbconn->real_escape_string($divedata['air_temp']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['bottom_temp']);
-    $sql .= "', " . $dbconn->real_escape_string($divedata['begin_psi']);
-    $sql .= ", " . $dbconn->real_escape_string($divedata['end_psi']);
-    $sql .= ", '" . $dbconn->real_escape_string($divedata['viz']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['weight']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['salt']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['fresh']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['shore']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['boat']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['waves']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['wetsuit']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['drysuit']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['hood']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['gloves']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['boots']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['surge']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['vest']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['location']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['site_name']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['si']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['begin_pg']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['end_pg']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['depth']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['safety_stop']);
-    $sql .= "', " . $dbconn->real_escape_string($divedata['bottom_time']);
-    $sql .= ", '" . $dbconn->real_escape_string($divedata['computer']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['computer_desc']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['eanx']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['eanx_percent']);
-    $sql .= "', '" . $dbconn->real_escape_string($divedata['comments']) . "')";
-
+    $sql .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
+    $sql .= "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
+    $sql .= "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ";
+    $sql .= "?, ?, ?, ?, ?, ?, ?, ?)";
+    $params = array($divedata['dive_no'], $divedata['dive_date'],
+                    $divedata['time_in'], $divedata['time_out'],
+                    $divedata['rnt'], $divedata['abt'], $divedata['tbt'],
+                    $divedata['air_temp'], $divedata['bottom_temp'],
+                    $divedata['begin_psi'], $divedata['end_psi'], $divedata['viz'],
+                    $divedata['weight'], $divedata['salt'], $divedata['fresh'],
+                    $divedata['shore'], $divedata['boat'], $divedata['waves'],
+                    $divedata['wetsuit'], $divedata['drysuit'], $divedata['hood'],
+                    $divedata['gloves'], $divedata['boots'], $divedata['surge'],
+                    $divedata['vest'], $divedata['location'], $divedata['site_name'],
+                    $divedata['si'], $divedata['begin_pg'], $divedata['end_pg'],
+                    $divedata['depth'], $divedata['safety_stop'],
+                    $divedata['bottom_time'], $divedata['computer'],
+                    $divedata['computer_desc'], $divedata['eanx'],
+                    $divedata['eanx_percent'], $divedata['comments']);
+    $sql = $db_helper->construct_secure_query($sql, $params);
     $res = $dbconn->query($sql);
     if(!$res) {
-        print "ERROR: Insert failed: " . $dbconn->error;
-        print "\n\n$sql\n";
+        echo "ERROR: Insert failed: " . $dbconn->error;
+        echo "\n\n$sql\n";
         exit();
     }
 }
@@ -231,7 +192,7 @@ function parse_xml($infile)
 
     if(!($fp = fopen($infile, "r")))
     {
-        print "ERROR: parse_xml(): could not open xml file: $infile";
+        echo "ERROR: parse_xml(): could not open xml file: $infile";
         exit();
     }
 
@@ -239,7 +200,7 @@ function parse_xml($infile)
     {
         if(!xml_parse($xml_parser, $data, feof($fp)))
         {
-            print sprintf("ERROR: XML error: %s at line %d", 
+            echo sprintf("ERROR: XML error: %s at line %d", 
 			  xml_error_string(xml_get_error_code($xml_parser)), 
 			  xml_get_current_line_number($xml_parser));
             exit();
@@ -311,7 +272,7 @@ function characterData($parser, $data)
     $timestampKey = "^divelog^dive^timestamp";
 
     $curTag = strtolower($curTag);
-    //print "curTag = $curTag\r\n    data = $data\r\n";
+    //echo "curTag = $curTag\r\n    data = $data\r\n";
 
     if($curTag == $emailKey)             { $divedata['email'] = $data; }
     elseif($curTag == $dive_noKey)       { $divedata['dive_no'] = $data; }

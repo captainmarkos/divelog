@@ -1,121 +1,117 @@
 <?php
 
-    require_once('config.php');
+require_once('config.php');
+require_once('classes/db_helper.php');
 
-    // Attempt to save a new dive into the divelog table.  The complete XML
-    // of the dive to be logged is passed in and is base64 encoded.
-    //
+// Attempt to save a new dive into the divelog table.  The complete XML
+// of the dive to be logged is passed in and is base64 encoded.
 
+$xmldata = isset($_REQUEST['xmldata']) ? $_REQUEST['xmldata'] : '';
+if(!$xmldata) { echo "ERROR: xmldata is empty - divelogprefs_save.php"; exit(); }
 
-    $xmldata = (isset($_REQUEST['xmldata']) && $_REQUEST['xmldata'] != '') ? $_REQUEST['xmldata'] : '';
-    if($xmldata == '') { print "ERROR: xmldata is empty - divelogprefs_save.php"; exit(); }
+$xmlfile = 'divelogprefs_' . date("Y-m-d_H-i-s") . '.xml';
+if(!($fp = fopen($xmlfile, "a"))) {
+    echo "ERROR: unable to open file \"$xmlfile\"\n"; exit(); }
+fwrite($fp, base64_decode($xmldata));
+fclose($fp);
 
-    $xmlfile = 'divelogprefs_' . date("Y-m-d_H-i-s") . '.xml';
-    if(!($fp = fopen($xmlfile, "a"))) {
-        print "ERROR: unable to open file \"$xmlfile\"\n"; exit(); }
-    fwrite($fp, base64_decode($xmldata));
-    fclose($fp);
+$diveprefs = array('id' => '',
+                   'email' => '',
+                   'fname' => '',
+                   'lname' => '',
+                   'cert_level' => '',
+                   'cert_agency' => '',
+                   'distance' => '',
+                   'weight' => '',
+                   'temperature' => '',
+                   'pressure' => '');
 
-    $diveprefs = array('id' => '',
-                       'email' => '',
-                       'fname' => '',
-                       'lname' => '',
-                       'cert_level' => '',
-                       'cert_agency' => '',
-                       'distance' => '',
-                       'weight' => '',
-                       'temperature' => '',
-                       'pressure' => ''
-	        );
+parse_xml($xmlfile);
 
-    parse_xml($xmlfile);
+unlink($xmlfile);
 
-    unlink($xmlfile);
+$db_helper = new DBHelper($dbconn);
+$sql  = "SELECT dp.id AS id, dp.deleted FROM divelogprefs AS dp ";
+$sql .= "JOIN users AS u ON dp.user_id=u.id ";
+$sql .= "WHERE u.email=?";
+$sql = $db_helper->construct_secure_query($sql, $diveprefs['email']);
+$res = $dbconn->query($sql);
+if(!$res) {
+    echo "ERROR: 1: Query Failed: " . $dbconn->error . "\nSQL: $sql";
+    exit();
+}
 
-    $sql  = "SELECT dp.id AS id, dp.deleted FROM divelogprefs AS dp ";
-    $sql .= "JOIN users AS u ON dp.user_id=u.id WHERE u.email='";
-    $sql .= $dbconn->real_escape_string($diveprefs['email']) . "'";
-    $res = $dbconn->query($sql);
-    if(!$res) {
-        print "ERROR: 1: Query Failed: " . $dbconn->error . "\nSQL: $sql";
+$row_cnt = $res->num_rows;
+if($row_cnt >= 1) {
+    // There are preferences for this user.  Maybe it has deleted == 'Y'?
+    $row = $res->fetch_assoc();
+    $diveprefs['id'] = $row['id'];
+
+    if($row['deleted'] == 'Y') {
+        $sql = "DELETE FROM divelogprefs WHERE id=?";
+        $sql = $db_helper->construct_secure_query($sql, $row['id']);
+        $res = $dbconn->query($sql);
+        if(!$res) {
+            echo "2: ERROR: Delete Failed: " . $dbconn->error;
+            exit();
+        }
+        execute_insert($dbconn, $diveprefs);  // Insert a default
+        echo "Preferences saved.";  // for " . $diveprefs['email'];
         exit();
-    }
-
-    $row_cnt = $res->num_rows;
-    if($row_cnt >= 1) {
-        // There are preferences for this user.  Maybe it has deleted == 'Y'?
-        $row = $res->fetch_assoc();
-        $diveprefs['id'] = $row['id'];
-
-  	if($row['deleted'] == 'Y') {
-  	    $sql = "DELETE FROM divelogprefs WHERE id=" . $row['id'];
-            $res = $dbconn->query($sql);
-            if(!$res) {
-                print "2: ERROR: Delete Failed: " . $dbconn->error;
-                exit();
-            }
-            DB_execute_insert($dbconn, $diveprefs);  // Insert a default
-            print "Preferences saved.";  // for " . $diveprefs['email'];
-            exit();
-        }
-        else {
-	    DB_execute_update($dbconn, $diveprefs);
-            print "Preferences updated."; // for " . $diveprefs['email'];
-            exit();
-        }
     }
     else {
-        DB_execute_insert($dbconn, $diveprefs);
-        print "Preferences saved.";  // for " . $diveprefs['email'];
+        execute_update($dbconn, $diveprefs);
+        echo "Preferences updated."; // for " . $diveprefs['email'];
         exit();
     }
-
-    // Terminating program successfully.
-    print "Why did we get here?\n\nDive# " . $diveprefs['dive_no'];
+}
+else {
+    execute_insert($dbconn, $diveprefs);
+    echo "Preferences saved.";  // for " . $diveprefs['email'];
     exit();
+}
+
+// Terminating program successfully.
+echo "Why did we get here?\n\nDive# " . $diveprefs['dive_no'];
+exit();
 
 
-?>
-
-
-<?php
-
-function DB_execute_update($dbconn, $diveprefs) {
+function execute_update($dbconn, $diveprefs) {
     // This is an update to an existing logged dive.
+    $db_helper = new DBHelper($dbconn);
     $sql  = "UPDATE divelogprefs SET ";
-    $sql .= "distance='" .  $dbconn->real_escape_string($diveprefs['distance']);
-    $sql .= "', weight='"  . $dbconn->real_escape_string($diveprefs['weight']);
-    $sql .= "', temperature='"  . $dbconn->real_escape_string($diveprefs['temperature']);
-    $sql .= "', pressure='"  . $dbconn->real_escape_string($diveprefs['pressure']);
-    $sql .= "', cert_level='"  . $dbconn->real_escape_string($diveprefs['cert_level']);
-    $sql .= "', cert_agency='"  . $dbconn->real_escape_string($diveprefs['cert_agency']) . "' ";
-    $sql .= "WHERE id=" . $dbconn->real_escape_string($diveprefs['id']);
+    $sql .= "distance=?, weight=?, temperature=?, pressure=?, cert_level=?, ";
+    $sql .= "cert_agency=? WHERE id=?";
 
+    $params = array($diveprefs['distance'], $diveprefs['weight'],
+                    $diveprefs['temperature'], $diveprefs['pressure'],
+                    $diveprefs['cert_level'], $diveprefs['cert_agency'],
+                    $diveprefs['id']);
+    $sql = $db_helper->construct_secure_query($sql, $params);
     $res = $dbconn->query($sql);
     if(!$res) {
-        print "ERROR: Update failed: errno: " . $dbconn->error;
-        print "\n\n$sql\n";
+        echo "ERROR: Update failed: errno: " . $dbconn->error;
+        echo "\n\n$sql\n";
         exit();
     }
 }
 
 
-function DB_execute_insert($dbconn, $diveprefs) {
+function execute_insert($dbconn, $diveprefs) {
     // This is a new dive being logged, save a new record.
+    $db_helper = new DBHelper($dbconn);
     $sql  = "INSERT INTO divelogprefs (user_id, distance, weight, temperature, pressure, ";
     $sql .= "cert_level, cert_agency) ";
-    $sql .= "VALUES (" . $dbconn->real_escape_string($diveprefs['user_id']);
-    $sql .= ", " . $dbconn->real_escape_string($diveprefs['distance']);
-    $sql .= ", '" . $dbconn->real_escape_string($diveprefs['weight']);
-    $sql .= "', '" . $dbconn->real_escape_string($diveprefs['temperature']);
-    $sql .= "', '" . $dbconn->real_escape_string($diveprefs['pressure']);
-    $sql .= "', '" . $dbconn->real_escape_string($diveprefs['cert_level']);
-    $sql .= "', '" . $dbconn->real_escape_string($diveprefs['cert_agency']) . "')";
-
+    $sql .= "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $params = array($diveprefs['user_id']$diveprefs['distance'],
+                    $diveprefs['weight'], $diveprefs['temperature'],
+                    $diveprefs['pressure'], $diveprefs['cert_level'],
+                    $diveprefs['cert_agency']);
+    $sql = $db_helper->construct_secure_query($sql, $params);
     $res = $dbconn->query($sql);
     if(!$res) {
-        print "ERROR: Insert failed: " . $dbconn->error;
-        print "\n\n$sql\n";
+        echo "ERROR: Insert failed: " . $dbconn->error;
+        echo "\n\n$sql\n";
         exit();
     }
 }
@@ -129,7 +125,7 @@ function parse_xml($infile)
 
     if(!($fp = fopen($infile, "r")))
     {
-        print "ERROR: parse_xml(): could not open xml file: $infile";
+        echo "ERROR: parse_xml(): could not open xml file: $infile";
         exit();
     }
 
@@ -137,7 +133,7 @@ function parse_xml($infile)
     {
         if(!xml_parse($xml_parser, $data, feof($fp)))
         {
-            print sprintf("ERROR: XML error: %s at line %d", 
+            echo sprintf("ERROR: XML error: %s at line %d",
 			  xml_error_string(xml_get_error_code($xml_parser)), 
 			  xml_get_current_line_number($xml_parser));
             exit();
@@ -178,7 +174,7 @@ function characterData($parser, $data)
     $cert_agencyKey = "^divelogprefs^cert_agency";
 
     $curTag = strtolower($curTag);
-    //print "curTag = $curTag\r\n    data = $data\r\n";
+    //echo "curTag = $curTag\r\n    data = $data\r\n";
 
     if($curTag == $emailKey)           { $diveprefs['email'] = $data; }
     elseif($curTag == $fnameKey)       { $diveprefs['fname'] = $data; }

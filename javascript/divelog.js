@@ -14,6 +14,7 @@
 // 'Delete' and show 'Edit'.
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+'use strict';
 
 var fold_speed = 300;                 // speed at which a form is displayed
 var divelog_display = true;           // display status of divelog form
@@ -22,10 +23,8 @@ var divelog_settings_display = false; // display status of divelog_settings form
 var divelog_help_display = false;     // display status of divelog_help form
 var curr_dive_index = 0;              // index into the dives array; current dive being displayed
 var save_curr_dive_index = 0;         // used to preserve the value of curr_dive_index
-var dives = new Array();              // an array of associative arrays containing all logged dives
-var prefs = new Array();              // an array of associative arrays containing diverlog preferences
-
-// var email = some_valid_email_address;
+var dives = new Array();              // array of associative arrays containing all logged dives
+var prefs = new Array();              // array of associative arrays containing diverlog preferences
 
 $(document).ready(function() {
 
@@ -33,11 +32,76 @@ $(document).ready(function() {
     $('#divelog_listing').hide();
     $('#divelog_settings').hide();
     $('#divelog_help').hide();
+    $('#divelog_login').hide();
 
-    load_preferences_xml();
-    load_xml();
+    if(!email) {
+        // User is not logged in, present the sign on form.
+        $('#divelog').hide();
+        $('#divelog_login').show();
+        login_event_handlers();
+    } else {
+        // User is logged in, game on!
+        load_preferences_xml();
+        load_xml();
+        divelog_event_handlers();
+    }
+});
 
+function login_event_handlers() {
+    $('#email').focus();
 
+    $('#divelog_signin').click(function() {
+        var username = $('#email').val();
+        var passwd = $('#passwd').val();
+        verify_credentials(username, passwd);
+    });
+
+    $('#divelog_signup').click(function() {
+        console.log('--> sign up button clicked!');
+    });
+}
+
+function verify_credentials(username, passwd) {
+    if(!username || !passwd) {
+        alert('ERROR: Missing email and/or password');
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: 'ajax/login.php',
+        data: { email: username, passwd: passwd }
+    })
+    .done(function(result) {
+        if(result && result.substr(0, 5) == 'ERROR') { alert(result); }
+        else {
+            email = username;  // Set the global variable.
+            load_preferences_xml();
+            load_xml();
+            divelog_event_handlers();
+            $('#divelog_login').hide();
+	    $('#divelog').show('fold', {}, fold_speed);
+        }
+    })
+    .fail(function(jqXHR, textStatus) {
+        alert("Request failed: " + jqXHR.status + " " + textStatus);
+    });
+}
+
+function logout() {
+    $.ajax({
+        type: "GET",
+        url: 'ajax/logout.php',
+    })
+    .done(function(result) {
+        location.href = 'index.php';
+    })
+    .fail(function(jqXHR, textStatus) {
+        alert("Request failed: " + jqXHR.status + " " + textStatus);
+    });
+}
+
+function divelog_event_handlers() {
     //
     // Setup click event triggers
     //
@@ -51,14 +115,13 @@ $(document).ready(function() {
             display_listing_rows();
 	    $('#divelog_listing').show('fold', {}, fold_speed);
             $('#divelog_listing_info').html('3500 hours spent underwater!');
+            $('.flash_email').html(email);
             divelog_listing_display = true;
             divelog_display = false;
         }
     });
 
-
     $('#divelog_listing_close').click(function() { divelog_listing_close(); });
-
 
     $('#divelog_settings_open').click(function() {
         if(!divelog_settings_display) { 
@@ -71,7 +134,6 @@ $(document).ready(function() {
         }
     });
 
-
     $('#divelog_settings_close').click(function() {
         if(divelog_settings_display) {
             $('#divelog_settings').hide(); 
@@ -81,16 +143,15 @@ $(document).ready(function() {
         }
     });
 
-
     $('#divelog_help_open').click(function() {
         if(!divelog_help_display) { 
             $('#divelog').hide(); 
-            $('#divelog_help').show('fold', {}, fold_speed); 
+            $('#divelog_help').show('fold', {}, fold_speed);
+            $('.flash_email').html(email);
             divelog_help_display = true;  
             divelog_display = false;
         }
     });
-
 
     $('#divelog_help_close').click(function() {
         if(divelog_help_display) {
@@ -99,6 +160,10 @@ $(document).ready(function() {
             divelog_help_display = false; 
             divelog_display = true;
         }
+    });
+
+    $('#divelog_logout').click(function() {
+        logout();
     });
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -134,7 +199,7 @@ $(document).ready(function() {
 
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // These click events belong to the divelog_listing form.
+    // These click events belong to the divelog_settings form.
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // Trigger for the 'Save' (settings) button.
@@ -156,7 +221,7 @@ $(document).ready(function() {
 
     // Display the first dive listing.
     $('#last_listing').click(function() { last_listing(); });
-});
+}
 
 
 function save_dive() {
@@ -183,7 +248,7 @@ function save_dive() {
             alert("Result: " + result);
             if(result.substr(0, 9) == 'Saved new') { curr_dive_index = dives.length; }
 
-            load_xml();   // asynchronous call
+            load_xml();
 	}
     })
     .fail(function(jqXHR, textStatus) { 
@@ -209,7 +274,7 @@ function delete_dive() {
             alert(result);
             curr_dive_index = (curr_dive_index > 0) ? curr_dive_index -1 : 0;
 
-            load_xml(email);  // asynchronous call
+            load_xml();  // asynchronous call
         }
     })
     .fail(function(jqXHR, textStatus) { 
@@ -244,6 +309,7 @@ function check_diver_email() {
         alert('No email specified. Log in to use the dive log.');
         return(false);
     }
+    $('.flash_email').html(email);
     return(true);
 }
 
@@ -261,8 +327,7 @@ function load_xml() {
         data: { email: email }
     })
     .done(function(result) {
-        //alert("Result: " + result);
-        if(result.substr(0, 5) == 'ERROR') { alert(result); }
+        if(result && result.substr(0, 5) == 'ERROR') { alert(result); }
         else {
             var parsedXML = $.parseXML(result);
             var dives_tmp = new Array();

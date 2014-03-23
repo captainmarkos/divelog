@@ -45,6 +45,16 @@ input {
     margin-bottom: 2px;
 }
 
+#divelog_signin.button {
+    margin: 0px 4px 6px 4px;
+    width: 60px;
+}
+
+#divelog_signup.button {
+    margin: 0px 4px 6px 4px;
+    width: 60px;
+}
+
 .chkbox {
     color: #000000;
     background-color: #f0f0f0;
@@ -142,6 +152,21 @@ span#divelog_help_open:hover {
     text-decoration: none; 
     margin: 0px; 
     padding: 0px; 
+    cursor: pointer;
+}
+
+span#divelog_logout {
+    color: #000088;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+span#divelog_logout:hover {
+    color: #be133b;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
     cursor: pointer;
 }
 
