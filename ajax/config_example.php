@@ -1,10 +1,12 @@
 <?php
 
+date_default_timezone_set('America/New_York');
+
 // db properties
-$dbhost = 'DB_HOSTNAME';
-$dbuser = 'DB_USERNAME';
-$dbpass = 'DB_PASSWORD';
-$dbname = 'DB_NAME';
+$dbhost = 'localhost';
+$dbuser = 'xxxxx';
+$dbpass = 'xxxxxx';
+$dbname = 'xxxxxx';
 
 // Using Mysqli - make a connection to the mysql database here.
 $dbconn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
