@@ -50,6 +50,15 @@ $(document).ready(function() {
 function login_event_handlers() {
     $('#email').focus();
 
+    // Enter key for the sign in button.
+    $('#divelog_login').keypress(function (e) {
+        if(e.which == 13) {
+            var username = $('#email').val();
+            var passwd = $('#passwd').val();
+            verify_credentials(username, passwd);
+        }
+    });
+
     $('#divelog_signin').click(function() {
         var username = $('#email').val();
         var passwd = $('#passwd').val();
