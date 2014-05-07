@@ -1,6 +1,16 @@
 <?php
 
 // A database handle is required in the constructor.
+//
+// Sample usage:
+/*
+
+$db_helper = new DBHelper($dbconn);
+$sql = "SELECT id, email FROM users WHERE email=? AND deleted='N'";
+$sql = $db_helper->construct_secure_query($sql, $email);
+$res = $dbconn->query($sql);
+
+*/
 
 class DBHelper {
     private $dbh;
