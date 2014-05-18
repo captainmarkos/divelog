@@ -19,36 +19,52 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 <script type="text/javascript" src="javascript/divelog.js"></script>
 <script type="text/javascript" src="javascript/base64.js"></script>
 
+<link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300,200' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../styles/bluewild.css">
+<link rel="stylesheet" href="../styles/normalize.css">
+
 <script type="text/javascript">
 
     var email = '<?php echo $email; ?>';
 
 </script>
-
 </head>
 <body>
-<br />
-<center>
 
+<header>
+    <div class="header-wrapper">
+      <h1 id="logo">blue wild us</h1>
+      <div class="contact-info">
+         <a href="tel:19542135067">
+            <i class="fa fa-phone"></i> : (954) 213-5067&nbsp;&nbsp;
+         </a>
+         <br class="rw-break" /> <a href="mailto:bluewildscuba@gmail.com" target="_blank">
+            <i class="fa fa-envelope"></i> : bluewildscuba@gmail.com
+         </a>
+      </div>
+    </div>
+</header>
 
-<table border="0" style="min-width: 680px; width: 680px; text-align: center;" cellpadding="0" cellspacing="0">
-    <tr>
-        <td style="font-family: Arial, Verdana, Sans-Serif; font-size: 9pt; padding-bottom: 20px;">
-        <a href="http://www.bluewild.us">Back To Bluewild Home</a>
-        </td>
-    </tr>
-    <tr><td align="center">
+<div class="main-wrapper">
+    <nav>
+      <ul>
+        <li><a href="../"><i class="fa fa-home icon-font-size"></i></a></li>
+        <li><a href="../#/courses">Scuba Courses</a></li>
+        <li><a href="../#/aboutus">About Us</a></li>
+        <li><a class="selected" href="divelog/index.php">Dive Log</a></li>
+      </ul>
+    </nav>
+
+    <section>
+        <div class="main-content">
         <?php include('divelog.html'); ?>
         <?php include('divelog_login.html'); ?>
         <?php include('divelog_listing.html'); ?>
         <?php include('divelog_settings.html'); ?>
         <?php include('divelog_help.html'); ?>
-    </td></tr>
-</table>
-
-
-</center>
-<br />
-<br />
+        </div>
+    </section>
+</div>
 </body>
 </html>
