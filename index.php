@@ -20,8 +20,9 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 <script type="text/javascript" src="javascript/base64.js"></script>
 
 <link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css">
-<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300,200' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:700,500,400,300,200' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="../styles/bluewild.css">
+<link rel="stylesheet" href="../styles/bluewild-devices.css">
 <link rel="stylesheet" href="../styles/normalize.css">
 
 <script type="text/javascript">
@@ -34,7 +35,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
 <header>
     <div class="header-wrapper">
-      <h1 id="logo">blue wild us</h1>
+      <h1 id="logo">dive the blue wild</h1>
       <div class="contact-info">
          <a href="tel:19542135067">
             <i class="fa fa-phone"></i> : (954) 213-5067&nbsp;&nbsp;
