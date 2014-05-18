@@ -54,6 +54,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
         <li><a href="../#/courses">Scuba Courses</a></li>
         <li><a href="../#/aboutus">About Us</a></li>
         <li><a class="selected" href="divelog/index.php">Dive Log</a></li>
+        <li><a href="../reefcreatures/index.php">Reef Creature Quiz</a></li>
       </ul>
     </nav>
 
