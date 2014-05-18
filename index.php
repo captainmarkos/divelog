@@ -3,27 +3,26 @@
 session_start();
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
-
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Free Online Scuba Diver Logbook" />
 <meta name="keywords" content="dive log, free dive log, free online diver logbook, free diver logbook" />
 <title>Blue Wild - Dive Log</title>
-<link type="text/css" rel="stylesheet" href="divelog.css" />
 <link type="text/css" rel="stylesheet" href="javascript/jquery-ui-1.8.21.custom/css/custom-theme/jquery-ui-1.8.21.custom.css" />
 <script type="text/javascript" src="javascript/jquery-ui-1.8.21.custom/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="javascript/jquery-ui-1.8.21.custom/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="javascript/divelog.js"></script>
 <script type="text/javascript" src="javascript/base64.js"></script>
 
-<link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css">
-<link href='http://fonts.googleapis.com/css?family=Raleway:700,500,400,300,200' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="../styles/bluewild.css">
-<link rel="stylesheet" href="../styles/bluewild-devices.css">
-<link rel="stylesheet" href="../styles/normalize.css">
+<link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css" />
+<link href="http://fonts.googleapis.com/css?family=Raleway:700,500,400,300,200" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="divelog.css" />
+<link type="text/css" rel="stylesheet" href="../styles/bluewild.css" />
+<link type="text/css" rel="stylesheet" href="../styles/bluewild-devices.css" />
+<link type="text/css" rel="stylesheet" href="../styles/normalize.css" />
 
 <script type="text/javascript">
 
