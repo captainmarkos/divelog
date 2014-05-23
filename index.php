@@ -39,6 +39,8 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
       </div>
       <div class="small-12 medium-6 large-6 columns contact-info small-only-text-center">
          <a href="tel:19542135067"><i class="fa fa-phone"></i> : (954) 213-5067</a>&nbsp;&nbsp;
+         <br class="show-for-small-only" />
+         <br class="show-for-small-only" />
          <a href="mailto:bluewildscuba@gmail.com" target="_blank">
          <i class="fa fa-envelope"></i> : bluewildscuba@gmail.com</a>
       </div>
@@ -46,20 +48,21 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 </header>
 
 <div class="row">
-   <nav class="breadcrumbs">
-      <a href="../"><i class="fa fa-home icon-font-size"></i></a>
-      <a href="../#/courses">Scuba Courses</a>
-      <a href="../#/aboutus">About Us</a>
-      <a class="hide-for-small-only selected">Dive Log</a>
-      <a href="../reefcreatures/index.php">Reef Creature Quiz</a>
-   </nav>
+  <div class="large-12 column nav">
+    <ul class="inline-list">
+    <li class="no-margin-left"><a href="../"><i class="fa fa-home icon-font-size"></i></a></li>
+    <li><a href="../#/courses">Scuba Courses</a></li>
+    <li><a href="../#/aboutus">About Us</a></li>
+    <li><a class="hide-for-small-only selected">Dive Log</a></li>
+    <li><a href="../reefcreatures/index.php">Reef Creature Quiz</a></li>
+    </ul>
+  </div>
 </div>
 
 <div class="row panel-margin">
   <div class="large-12 columns no-padding">
     <div class="panel">
       <!--single row for info-->
-      <div class="panel">
         <div class="row">
           <div class="large-12 columns">
             <?php include('divelog.html'); ?>
@@ -69,7 +72,6 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
             <?php include('divelog_help.html'); ?>
           </div>
         </div>
-      </div>
       <!--end content-->
     </div>
   </div>

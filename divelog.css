@@ -3,8 +3,35 @@
 /* BEGIN divelog.css    Mark Brettin  JULY 2012     */
 /*                                                  */
 /* ------------------------------------------------ */
+.title {
+    background-color: #1ba4ff;
+    color: #fff;
+}
+.no-margin-bot {
+    margin-bottom: 0 !important;
+}
 
-#ui-datepicker-div { font-size: 9pt; } 
+.offset-right-sm {
+    margin-right: 2% !important;
+}
+
+.divelog_forgot_password {
+    color: #000;
+    padding-top: 6%;
+    font-size: .8rem;
+    margin-right: 5%;
+}
+
+.divelog_forgot_password:hover {
+    color: #be110f;
+}
+
+.no-margin {
+    margin-bottom: 0 !important;
+}
+
+
+#ui-datepicker-div { font-size: 9pt; }
 
 #divelog {
     border: 1px solid #000088;
@@ -31,21 +58,20 @@
 }
 
 .main_font {
-    font-family: Arial, Verdana, Sans-Serif;
     font-size: 9pt;
     color: #000000;
 }
 
-input {
+/*input {
     color: #000000;
     background-color: #ffffff;
-    border: 1px solid #1ba4ff;    /*#30b9f3;*/
+    border: 1px solid #1ba4ff;
     font-size: 9pt;
     padding-left: 2px;
     margin-bottom: 2px;
-}
+}*/
 
-#divelog_signin.button {
+/*#divelog_signin.button {
     margin: 0px 4px 6px 4px;
     width: 60px;
     float: right;
@@ -55,7 +81,7 @@ input {
     margin: 0px 4px 6px 4px;
     width: 60px;
     float: right;
-}
+}*/
 
 .chkbox {
     color: #000000;
@@ -74,7 +100,6 @@ input {
 .button {
     background-color: #205895;   /*#409ea6; */
     color: #ffffff;
-    padding: 2px;
     border: 1px solid #409ea6;
     margin-bottom: 0px;
 }
@@ -97,67 +122,67 @@ input {
     cursor: pointer;
 }
 
-span#divelog_new_dive { 
-    color: #000088; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_new_dive {
+    color: #000088;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
 }
 
-span#divelog_new_dive:hover { 
-    color: #be133b; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_new_dive:hover {
+    color: #be133b;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
     cursor: pointer;
 }
 
-span#divelog_listing_open { 
-    color: #000088; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_listing_open {
+    color: #000088;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
 }
 
-span#divelog_listing_open:hover { 
-    color: #be133b; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_listing_open:hover {
+    color: #be133b;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
     cursor: pointer;
 }
 
-span#divelog_settings_open { 
-    color: #000088; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_settings_open {
+    color: #000088;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
 }
 
-span#divelog_settings_open:hover { 
-    color: #be133b; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_settings_open:hover {
+    color: #be133b;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
     cursor: pointer;
 }
 
-span#divelog_help_open { 
-    color: #000088; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_help_open {
+    color: #000088;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
 }
 
-span#divelog_help_open:hover { 
-    color: #be133b; 
-    text-decoration: none; 
-    margin: 0px; 
-    padding: 0px; 
+span#divelog_help_open:hover {
+    color: #be133b;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
     cursor: pointer;
 }
 
-span#divelog_logout {
+/*span#divelog_logout {
     color: #000088;
     text-decoration: none;
     margin: 0px;
@@ -170,24 +195,12 @@ span#divelog_logout:hover {
     margin: 0px;
     padding: 0px;
     cursor: pointer;
-}
-
-span#divelog_forgot_password {
-    color: #0000ff;
-}
-
-span#divelog_forgot_password:hover {
-    color: #be133b;
-    text-decoration: none;
-    margin: 0px;
-    padding: 0px;
-    cursor: pointer;
-}
+}*/
 
 #comments {
-    width: 298px; 
-    max-width: 298px; 
-    height: 166px; 
+    width: 298px;
+    max-width: 298px;
+    height: 166px;
     max-height: 166px;
     font-family: Arial, Tahoma, Sans-Serif;
     font-size: 9pt;
@@ -205,9 +218,9 @@ span#divelog_forgot_password:hover {
     font-size: 9pt;
     background-color: #ffffff;
     color: #404040;
-    width: 486px; 
+    width: 486px;
     height: 290px;
-    max-width: 486px; 
+    max-width: 486px;
     max-height: 290px;
 }
 
@@ -222,7 +235,7 @@ span#divelog_forgot_password:hover {
 .loglisting_row_even {
     cursor: pointer;
     background-color: #f0f0f0;
-    text-align: left;  
+    text-align: left;
 }
 .loglisting_row_even:hover { text-decoration: none; background-color: #ffffbb; }
 
