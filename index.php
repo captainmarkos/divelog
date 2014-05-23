@@ -7,7 +7,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Free Online Scuba Diver Logbook" />
 <meta name="keywords" content="dive log, free dive log, free online diver logbook, free diver logbook" />
 <title>Blue Wild - Dive Log</title>
@@ -20,8 +20,8 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 <link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css" />
 <link href="http://fonts.googleapis.com/css?family=Raleway:700,500,400,300,200" rel="stylesheet" type="text/css" />
 <link type="text/css" rel="stylesheet" href="divelog.css" />
+<link rel="stylesheet" href="../styles/foundation.css" />
 <link type="text/css" rel="stylesheet" href="../styles/bluewild.css" />
-<link type="text/css" rel="stylesheet" href="../styles/bluewild-devices.css" />
 <link type="text/css" rel="stylesheet" href="../styles/normalize.css" />
 
 <script type="text/javascript">
@@ -33,39 +33,46 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 <body>
 
 <header>
-    <div class="header-wrapper">
-      <h1 id="logo">dive the blue wild</h1>
-      <div class="contact-info">
-         <a href="tel:19542135067">
-            <i class="fa fa-phone"></i> : (954) 213-5067&nbsp;&nbsp;
-         </a>
-         <br class="rw-break" /> <a href="mailto:bluewildscuba@gmail.com" target="_blank">
-            <i class="fa fa-envelope"></i> : bluewildscuba@gmail.com
-         </a>
+   <div class="row offset-top">
+      <div class="small-12 medium-6 large-6 columns no-padding small-only-text-center">
+         <h3>dive the blue wild</h3>
       </div>
-    </div>
+      <div class="small-12 medium-6 large-6 columns contact-info small-only-text-center">
+         <a href="tel:19542135067"><i class="fa fa-phone"></i> : (954) 213-5067</a>&nbsp;&nbsp;
+         <a href="mailto:bluewildscuba@gmail.com" target="_blank">
+         <i class="fa fa-envelope"></i> : bluewildscuba@gmail.com</a>
+      </div>
+   </div>
 </header>
 
-<div class="main-wrapper">
-    <nav>
-      <ul>
-        <li><a href="../"><i class="fa fa-home icon-font-size"></i></a></li>
-        <li><a href="../#/courses">Scuba Courses</a></li>
-        <li><a href="../#/aboutus">About Us</a></li>
-        <li><a class="selected" href="divelog/index.php">Dive Log</a></li>
-        <li><a href="../reefcreatures/index.php">Reef Creature Quiz</a></li>
-      </ul>
-    </nav>
+<div class="row">
+   <nav class="breadcrumbs">
+      <a href="../"><i class="fa fa-home icon-font-size"></i></a>
+      <a href="../#/courses">Scuba Courses</a>
+      <a href="../#/aboutus">About Us</a>
+      <a class="hide-for-small-only selected">Dive Log</a>
+      <a href="../reefcreatures/index.php">Reef Creature Quiz</a>
+   </nav>
+</div>
 
-    <section>
-        <div class="main-content">
-        <?php include('divelog.html'); ?>
-        <?php include('divelog_login.html'); ?>
-        <?php include('divelog_listing.html'); ?>
-        <?php include('divelog_settings.html'); ?>
-        <?php include('divelog_help.html'); ?>
+<div class="row panel-margin">
+  <div class="large-12 columns no-padding">
+    <div class="panel">
+      <!--single row for info-->
+      <div class="panel">
+        <div class="row">
+          <div class="large-12 columns">
+            <?php include('divelog.html'); ?>
+            <?php include('divelog_login.html'); ?>
+            <?php include('divelog_listing.html'); ?>
+            <?php include('divelog_settings.html'); ?>
+            <?php include('divelog_help.html'); ?>
+          </div>
         </div>
-    </section>
+      </div>
+      <!--end content-->
+    </div>
+  </div>
 </div>
 </body>
 </html>
