@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'captainmarkos@gmail.com';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
 ?>
 <!DOCTYPE html>
