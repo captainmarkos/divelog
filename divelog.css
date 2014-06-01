@@ -7,6 +7,8 @@
     background-color: #1ba4ff;
     color: #fff;
 }
+
+.title img { border-radius: 0 !important }
 .no-margin-bot {
     margin-bottom: 0 !important;
 }
@@ -35,8 +37,8 @@
 
 #divelog {
     border: 1px solid #000088;
-    width: 510px;
-    height: 640px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 #divelog_settings {
@@ -57,31 +59,15 @@
     height: 480px;
 }
 
+#divelog_login {
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .main_font {
     font-size: 9pt;
     color: #000000;
 }
-
-/*input {
-    color: #000000;
-    background-color: #ffffff;
-    border: 1px solid #1ba4ff;
-    font-size: 9pt;
-    padding-left: 2px;
-    margin-bottom: 2px;
-}*/
-
-/*#divelog_signin.button {
-    margin: 0px 4px 6px 4px;
-    width: 60px;
-    float: right;
-}
-
-#divelog_signup.button {
-    margin: 0px 4px 6px 4px;
-    width: 60px;
-    float: right;
-}*/
 
 .chkbox {
     color: #000000;
@@ -182,7 +168,7 @@ span#divelog_help_open:hover {
     cursor: pointer;
 }
 
-/*span#divelog_logout {
+span#divelog_logout {
     color: #000088;
     text-decoration: none;
     margin: 0px;
@@ -195,7 +181,7 @@ span#divelog_logout:hover {
     margin: 0px;
     padding: 0px;
     cursor: pointer;
-}*/
+}
 
 #comments {
     width: 298px;

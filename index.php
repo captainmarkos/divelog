@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'captainmarkos@gmail.com';
 
 ?>
 <!DOCTYPE html>
@@ -19,10 +19,10 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
 <link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:400" />
-<link type="text/css" rel="stylesheet" href="divelog.css" />
-<link rel="stylesheet" href="../styles/foundation.css" />
-<link type="text/css" rel="stylesheet" href="../styles/bluewild.css" />
 <link type="text/css" rel="stylesheet" href="../styles/normalize.css" />
+<link type="text/css" rel="stylesheet" href="../styles/foundation.css" />
+<link type="text/css" rel="stylesheet" href="../styles/bluewild.css" />
+<link type="text/css" rel="stylesheet" href="divelog.css" />
 
 <script type="text/javascript">
 

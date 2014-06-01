@@ -2,23 +2,24 @@
 <!-- ~~~~~~~~~~~~~~ -->
 <!-- BEGIN: divelog -->
 <!-- ~~~~~~~~~~~~~~ -->
-<div id="divelog" class="main_font">
-    <table style="width: 510px; height: 640px; border: 1px solid #0066ff; background-color: #1ba4ff;">
+<table id="divelog">
+    <thead>
+    <tr>
+        <th class="title">
+                <img src="images/dive_flag.jpg" alt="Diver down flag" />
+                &nbsp;&nbsp;Blue Wild - Dive Log
+        </td>
+    </tr>
+    </thead>
+
+
+    <tbody>
         <tr>
-            <td style="width: 28px; height: 22px; vertical-align: middle;">
-                <img src="images/dive_flag.jpg" alt="" style="width: 23px; height: 18px; border: 0px solid #000000;" />
-            </td>
-            <td style="height: 22px; color: #ffffff; vertical-align: middle;">
-                <b>Blue Wild - Dive Log</b>
-                <span class="flash_email" style="float: right; margin-right: 3px;"></span>
-            </td>
-        </tr>
-        <tr>
-            <td style="vertical-align: top;" colspan="2">
-                <table style="width: 100%; height: 606px; border: 1px solid #808080; background-color: #f0f0f0;" cellspacing="0" cellpadding="0">
+            <td colspan="2">
+                <table style="" cellspacing="0" cellpadding="0">
                     <!-- BEGIN: toolstrip -->
                     <tr>
-                        <td style="text-align: left; height: 24px; vertical-align: middle; background-color: #e0e0e0; padding-left: 4px;">
+                        <td style="background-color: #e0e0e0; padding-left: 4px;">
                             <span id="divelog_new_dive">New Dive</span>&nbsp;&nbsp;&nbsp;&nbsp;
                             <span id="divelog_listing_open">Log Listing</span>&nbsp;&nbsp;&nbsp;&nbsp;
                             <span id="divelog_settings_open">Settings</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -36,20 +37,20 @@
                     <tr>
                         <!-- BEGIN: left side of divelog page -->
                         <td style="vertical-align: top; padding: 6px 4px 4px 4px; border: 0px solid #cd0000;">
-                            <table border="0" cellspacing="0" cellpadding="0" style="text-align: left; width: 99%;">
+                            <table border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td style="text-align: left; width: 70px;">Dive #</td>
-                                    <td style="text-align: left;"><input type="text" id="dive_no" value="" style="width: 42px;" /></td>
-                                    <td style="text-align: right; width: 58px;">Dive Date&nbsp;</td>
-                                    <td style="text-align: right;"><input type="text" id="dive_date" value="" style="width: 82px;" /></td>
+                                    <td style="text-align: left;">Dive #</td>
+                                    <td style="text-align: left;"><input type="text" id="dive_no" value="" /></td>
+                                    <td style="text-align: right;">Dive Date&nbsp;</td>
+                                    <td style="text-align: right;"><input type="text" id="dive_date" value="" /></td>
                                 </tr>
                                 <tr>
                                     <td>Location</td>
-                                    <td colspan="3"><input type="text" id="location" value="" style="width: 230px;" /></td>
+                                    <td colspan="3"><input type="text" id="location" value="" /></td>
                                 </tr>
                                 <tr>
                                     <td>Site Name</td>
-                                    <td colspan="3"><input type="text" id="site_name" value="" style="width: 230px;" /></td>
+                                    <td colspan="3"><input type="text" id="site_name" value="" /></td>
                                 </tr>
                             </table>
 
@@ -236,8 +237,11 @@
                 </table>
             </td>
         </tr>
-    </table>
-</div>
+
+
+    </tbody>
+</table>
+
 <!-- ~~~~~~~~~~~~~~ -->
 <!-- END: divelog   -->
 <!-- ~~~~~~~~~~~~~~ -->
