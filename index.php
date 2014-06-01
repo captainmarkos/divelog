@@ -18,7 +18,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 <script type="text/javascript" src="javascript/base64.js"></script>
 
 <link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css" />
-<link href="http://fonts.googleapis.com/css?family=Raleway:700,500,400,300,200" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:400" />
 <link type="text/css" rel="stylesheet" href="divelog.css" />
 <link rel="stylesheet" href="../styles/foundation.css" />
 <link type="text/css" rel="stylesheet" href="../styles/bluewild.css" />
@@ -47,16 +47,17 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
    </div>
 </header>
 
+<!-- navbar -->
 <div class="row">
-  <div class="large-12 column nav">
-    <ul class="inline-list">
-    <li class="no-margin-left"><a href="../"><i class="fa fa-home icon-font-size"></i></a></li>
-    <li><a href="../#/courses">Scuba Courses</a></li>
-    <li><a href="../#/aboutus">About Us</a></li>
-    <li><a class="hide-for-small-only selected">Dive Log</a></li>
-    <li><a href="../reefcreatures/index.php">Reef Creature Quiz</a></li>
-    </ul>
-  </div>
+    <div class="large-12 column nav">
+        <ul class="inline-list">
+          <li class="no-margin-left"><a href="../"><i class="fa fa-home icon-font-size"></i></a></li>
+          <li><a href="../#/courses">Scuba Courses</a></li>
+          <li><a href="../#/aboutus">About Us</a></li>
+          <li><a href="../divelog/index.php" class="hide-for-small-only selected">Dive Log</a></li>
+          <li><a href="../reefcreatures/index.php">Reef Creature Quiz</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="row panel-margin">
