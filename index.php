@@ -31,7 +31,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
 </script>
 
-<title>Blue Wild - Dive Log</title>
+<title>blue wild scuba: dive log</title>
 </head>
 <body>
 
