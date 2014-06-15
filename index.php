@@ -7,17 +7,18 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Free Online Scuba Diver Logbook" />
-<meta name="keywords" content="dive log, free dive log, free online diver logbook, free diver logbook" />
-<title>Blue Wild - Dive Log</title>
+<meta name="description" content="Enjoy the free dive log application. Scuba dive the blue wild in Fort Lauderdale and the Florida Keys." />
+<meta name="keywords" content="scuba diving, dive log, free online dive log" />
+<meta name="author" content="Captain Markos" />
 <link type="text/css" rel="stylesheet" href="javascript/jquery-ui-1.8.21.custom/css/custom-theme/jquery-ui-1.8.21.custom.css" />
 <script type="text/javascript" src="javascript/jquery-ui-1.8.21.custom/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="javascript/jquery-ui-1.8.21.custom/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="javascript/divelog.js"></script>
 <script type="text/javascript" src="javascript/base64.js"></script>
 
-<link rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="../vendor/font-awesome-4.1.0/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:400" />
 <link type="text/css" rel="stylesheet" href="../styles/normalize.css" />
 <link type="text/css" rel="stylesheet" href="../styles/foundation.css" />
@@ -29,6 +30,8 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
     var email = '<?php echo $email; ?>';
 
 </script>
+
+<title>Blue Wild - Dive Log</title>
 </head>
 <body>
 
@@ -52,10 +55,10 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
     <div class="large-12 column nav">
         <ul class="inline-list">
           <li class="no-margin-left"><a href="../"><i class="fa fa-home icon-font-size"></i></a></li>
-          <li><a href="../#!/courses">Scuba Courses</a></li>
-          <li><a href="../#!/aboutus">About Us</a></li>
-          <li><a href="../divelog/index.php" class="hide-for-small-only selected">Dive Log</a></li>
-          <li><a href="../reefcreatures/index.php">Reef Creature Quiz</a></li>
+          <li><a href="/courses">Scuba Courses</a></li>
+          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/divelog/index.php" class="hide-for-small-only selected">Dive Log</a></li>
+          <li><a href="/reefcreatures/index.php">Reef Creature Quiz</a></li>
         </ul>
     </div>
 </div>
