@@ -55,8 +55,8 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
     <div class="large-12 column nav">
         <ul class="inline-list">
           <li class="no-margin-left"><a href="../"><i class="fa fa-home icon-font-size"></i></a></li>
-          <li><a href="/courses">Scuba Courses</a></li>
-          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/courses.html">Scuba Courses</a></li>
+          <li><a href="/aboutus.html">About Us</a></li>
           <li><a href="/divelog/index.php" class="hide-for-small-only selected">Dive Log</a></li>
           <li><a href="/reefcreatures/index.php">Reef Creature Quiz</a></li>
         </ul>
